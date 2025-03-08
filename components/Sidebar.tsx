@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { Box } from "@mui/material"
 import { ChevronDown } from "lucide-react"
 import { FileText, Tag, Wrench, HelpCircle } from "lucide-react"
 
@@ -8,7 +9,21 @@ export default function Sidebar() {
   const [activeItem, setActiveItem] = useState("documents")
 
   return (
-    <div className="sidebar">
+    <Box
+      sx={{
+        width: "16rem",
+        height: "100vh",
+        position: "fixed",
+        left: 0,
+        top: 0,
+        bgcolor: "#2e1a47",
+        color: "white",
+        display: "flex",
+        flexDirection: "column",
+        borderRight: "1px solid rgba(255, 255, 255, 0.1)",
+        zIndex: 1200, // Ensure sidebar is above main content
+      }}
+    >
       {/* Logo */}
       <div className="sidebar-header">
         <h1 className="text-xl font-bold">datalift.ai</h1>
@@ -66,7 +81,7 @@ export default function Sidebar() {
         </div>
         <ChevronDown className="opacity-70 cursor-pointer" />
       </div>
-    </div>
+    </Box>
   )
 }
 

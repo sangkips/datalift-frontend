@@ -5,7 +5,7 @@ import type { Metadata } from 'next'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'docAnalyzer.ai - Document Management System',
+  title: 'datalift - Document Management System',
   description: 'Analyze and chat with your documents using AI',
 }
 
