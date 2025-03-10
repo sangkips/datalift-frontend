@@ -1,77 +1,26 @@
-// import { NextResponse } from "next/server"
-// import { getMockDocuments } from "@/lib/api/documents"
+import { NextResponse } from "next/server"
 
-// /**
-//  * GET handler for /api/documents/[id]
-//  * Returns a single document by ID
-//  */
-// export async function GET(request: Request, { params }: { params: { id: string } }) {
-//   try {
-//     const id = params.id
+export async function PATCH(request: Request, { params }: { params: { id: string } }) {
+  const id = params.id
+  const body = await request.json()
 
-//     // In a real application, you would fetch the document from your database
-//     // For now, we'll use mock data
-//     const documents = getMockDocuments()
-//     const document = documents.find((doc) => doc.id === id)
+  // Validate request body
+  if (!body.name) {
+    return NextResponse.json({ error: "Document name is required" }, { status: 400 })
+  }
 
-//     if (!document) {
-//       return NextResponse.json({ message: `Document with ID ${id} not found` }, { status: 404 })
-//     }
+  // In a real app, you'd update the document in your database
+  // For this example, we'll just return success
 
-//     return NextResponse.json(document)
-//   } catch (error) {
-//     console.error(`Error in GET /api/documents/${params.id}:`, error)
-//     return NextResponse.json({ message: "Failed to fetch document" }, { status: 500 })
-//   }
-// }
+  return NextResponse.json({ success: true })
+}
 
-// /**
-//  * PUT handler for /api/documents/[id]
-//  * Updates a document by ID
-//  */
-// export async function PUT(request: Request, { params }: { params: { id: string } }) {
-//   try {
-//     const id = params.id
-//     const body = await request.json()
+export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+  const id = params.id
 
-//     // In a real application, you would update the document in your database
-//     // For now, we'll use mock data
-//     const documents = getMockDocuments()
-//     const documentIndex = documents.findIndex((doc) => doc.id === id)
+  // In a real app, you'd delete the document from your database
+  // For this example, we'll just return success
 
-//     if (documentIndex === -1) {
-//       return NextResponse.json({ message: `Document with ID ${id} not found` }, { status: 404 })
-//     }
-
-//     // Update the document
-//     const updatedDocument = {
-//       ...documents[documentIndex],
-//       ...body,
-//       id, // Ensure ID doesn't change
-//     }
-
-//     return NextResponse.json(updatedDocument)
-//   } catch (error) {
-//     console.error(`Error in PUT /api/documents/${params.id}:`, error)
-//     return NextResponse.json({ message: "Failed to update document" }, { status: 500 })
-//   }
-// }
-
-// /**
-//  * DELETE handler for /api/documents/[id]
-//  * Deletes a document by ID
-//  */
-// export async function DELETE(request: Request, { params }: { params: { id: string } }) {
-//   try {
-//     const id = params.id
-
-//     // In a real application, you would delete the document from your database
-//     // For now, we'll just return a success response
-
-//     return NextResponse.json({ success: true })
-//   } catch (error) {
-//     console.error(`Error in DELETE /api/documents/${params.id}:`, error)
-//     return NextResponse.json({ message: "Failed to delete document" }, { status: 500 })
-//   }
-// }
+  return NextResponse.json({ success: true })
+}
 

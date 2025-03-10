@@ -1,46 +1,55 @@
-// import { NextResponse } from "next/server"
-// import { getMockDocuments } from "@/lib/api/documents"
+import { NextResponse } from "next/server"
 
-// /**
-//  * GET handler for /api/documents
-//  * Returns a list of all documents
-//  */
-// export async function GET() {
-//   try {
-//     // In a real application, you would fetch documents from your database
-//     // For now, we'll use mock data
-//     const documents = getMockDocuments()
+// Mock data for demonstration
+const mockDocuments = [
+  {
+    id: "1",
+    name: "Project Proposal.pdf",
+    daysAgo: 2,
+    pages: 5,
+    labels: ["Work"],
+  },
+  {
+    id: "2",
+    name: "Meeting Notes.pdf",
+    daysAgo: 1,
+    pages: 3,
+    labels: ["Important"],
+  },
+  {
+    id: "3",
+    name: "Financial Report.pdf",
+    daysAgo: 5,
+    pages: 12,
+    labels: ["Finance"],
+  },
+]
 
-//     return NextResponse.json(documents)
-//   } catch (error) {
-//     console.error("Error in GET /api/documents:", error)
-//     return NextResponse.json({ message: "Failed to fetch documents" }, { status: 500 })
-//   }
-// }
+export async function GET() {
+  // Simulate network delay
+  await new Promise((resolve) => setTimeout(resolve, 500))
 
-// /**
-//  * POST handler for /api/documents
-//  * Creates a new document
-//  */
-// export async function POST(request: Request) {
-//   try {
-//     const body = await request.json()
+  // Return mock data
+  return NextResponse.json({ documents: mockDocuments })
+}
 
-//     // In a real application, you would save the document to your database
-//     // For now, we'll just return the document with a generated ID
-//     const newDocument = {
-//       id: `mock-${Date.now()}`,
-//       name: body.name || "Untitled Document",
-//       daysAgo: 0,
-//       pages: body.pages || 1,
-//       labels: body.labels || [],
-//       uploadDate: "2025-03-08T12:00:00Z", // Fixed date to avoid hydration issues
-//     }
+export async function POST(request: Request) {
+  const body = await request.json()
 
-//     return NextResponse.json(newDocument, { status: 201 })
-//   } catch (error) {
-//     console.error("Error in POST /api/documents:", error)
-//     return NextResponse.json({ message: "Failed to create document" }, { status: 500 })
-//   }
-// }
+  // Validate request body
+  if (!body.name) {
+    return NextResponse.json({ error: "Document name is required" }, { status: 400 })
+  }
+
+  // Create a new document (in a real app, you'd save to a database)
+  const newDocument = {
+    id: Date.now().toString(),
+    name: body.name,
+    daysAgo: 0,
+    pages: body.pages || 1,
+    labels: body.labels || [],
+  }
+
+  return NextResponse.json({ document: newDocument }, { status: 201 })
+}
 
